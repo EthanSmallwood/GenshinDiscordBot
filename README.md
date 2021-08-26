@@ -17,6 +17,11 @@ Current commands:
 
 
 
+Todo:
+resin reset timer / reminder
+resource route e.g. .resources snapdragon
+character wiki
+
 
 
 
