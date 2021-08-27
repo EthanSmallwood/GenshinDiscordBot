@@ -9,12 +9,16 @@ import java.util.List;
 public class CharacterInfo {
     private  GameInfo gi = new GameInfo();
     private DatabaseHandler db = new DatabaseHandler();
+    private List<DatabaseObjectOutputCharacters> dbo = db.dbToObjChar();
+    private List<DatabaseObjectCharacterConst> doc = db.dbToObjConst();
 
 
     public EmbedBuilder characters(String character){
         EmbedBuilder temp = new EmbedBuilder(); //initialised embed
         temp.setTitle(character.toUpperCase());//title is the character its returning but capitalised
         temp.setImage("attachment://Character_"+character+".jpg"); //assigns the image to the embed
+        Color colour = getColour(character);
+        temp.setColor(colour);
         return temp;
     }
 
@@ -22,11 +26,12 @@ public class CharacterInfo {
         EmbedBuilder temp = new EmbedBuilder();
         temp.setTitle("NEXT BANNER");
         temp.setImage("attachment://Character_"+gi.getNextBanner().toLowerCase()+".jpg");
+        Color colour = getColour(gi.getNextBanner().toLowerCase());
+        temp.setColor(colour);
         return temp;
     }
 
     public EmbedBuilder characterWiki(String character) {
-        List<DatabaseObjectOutputCharacters> dbo = db.dbToObjChar();
         int index = 0;
         //check if character name is the same as one in the object and returns index value
         for(int i = 0; i < dbo.size(); i++){
@@ -43,13 +48,21 @@ public class CharacterInfo {
         temp.addField("Weapon",dbo.get(index).getWeapon(),false);
         temp.addField("Birthday",dbo.get(index).getBirthday(),false);
         temp.setImage(dbo.get(index).getImage());
-        Color colour = getColour(dbo.get(index).getElement());
+        Color colour = getColour(character);
         temp.setColor(colour);
         return temp;
     }
 
-    private Color getColour(String element) {
-        return switch (element.toLowerCase()) {
+    private Color getColour(String character) {
+        int index = 0;
+        for(int i = 0; i < dbo.size(); i++){
+            if(dbo.get(i).getName().equalsIgnoreCase(character)){
+                index = i;
+                break;
+            }
+        }
+
+        return switch (dbo.get(index).getElement().toLowerCase()) {
             case ("cryo") -> Color.cyan;
             case ("anemo") -> Color.green;
             case ("geo") -> Color.yellow;
@@ -63,7 +76,6 @@ public class CharacterInfo {
 
 
     public EmbedBuilder constellations(String character){
-        List<DatabaseObjectCharacterConst> doc = db.dbToObjConst();
         int index = 0;
         for(int i = 0; i < doc.size(); i++){
             if(doc.get(i).getName().equalsIgnoreCase(character)){
@@ -75,13 +87,15 @@ public class CharacterInfo {
         temp.setTitle(character.toUpperCase());
         temp.addField("Constellations", "\n"+doc.get(index).getConstName(),false);
         temp.addField("","",false);
-        temp.addField("Dew-Drinker", "Level: 1\n"+doc.get(index).getConstContentOne(),true);
-        temp.addField("The Auspicious", "Level: 2\n"+doc.get(index).getConstContentTwo(),true);
-        temp.addField("Cloud-Strider", "Level: 3\n"+doc.get(index).getConstContentThree(),true);
-        temp.addField("Westward Sojourn0","Level: 4\n"+doc.get(index).getConstContentFour(),true);
-        temp.addField("The Merciful", "Level: 5\n"+doc.get(index).getConstContentFive(),true);
-        temp.addField("The Clement", "Level: 6\n"+doc.get(index).getConstContentSix(),true);
+        temp.addField(doc.get(index).getConstNameOne(), "Level: 1\n"+doc.get(index).getConstContentOne(),true);
+        temp.addField(doc.get(index).getConstNameTwo(), "Level: 2\n"+doc.get(index).getConstContentTwo(),true);
+        temp.addField(doc.get(index).getConstNameThree(), "Level: 3\n"+doc.get(index).getConstContentThree(),true);
+        temp.addField(doc.get(index).getConstNameFour(),"Level: 4\n"+doc.get(index).getConstContentFour(),true);
+        temp.addField(doc.get(index).getConstNameFive(), "Level: 5\n"+doc.get(index).getConstContentFive(),true);
+        temp.addField(doc.get(index).getConstNameSix(), "Level: 6\n"+doc.get(index).getConstContentSix(),true);
         temp.setThumbnail(doc.get(index).getImage());
+        Color colour = getColour(character);
+        temp.setColor(colour);
         return temp;
     }
 

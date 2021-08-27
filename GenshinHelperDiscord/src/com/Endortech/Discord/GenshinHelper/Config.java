@@ -6,7 +6,7 @@ public class Config {
     // add activity to show on bot
     // add default prefix
     //
-    private String token = "";
+    private String token = "ODcxMTM2MDg3MTY1MjU1Nzcw.YQW6tA.e9SswzuLDEEhbGUiGYJDTuI_2rw";
     private String activity = "Sticky honey roast";
     private String prefix = ".";
 

@@ -66,6 +66,7 @@ public class DatabaseHandler {
                 doc.setConstContentSix(rs.getString("ConstSix"));
                 doc.setConstName(rs.getString("ConstName"));
                 doc.setImage(rs.getString("Image"));
+                doc.setElement(rs.getString("Element"));
                 output.add(doc);
             }
             stmt.close();//closes connections

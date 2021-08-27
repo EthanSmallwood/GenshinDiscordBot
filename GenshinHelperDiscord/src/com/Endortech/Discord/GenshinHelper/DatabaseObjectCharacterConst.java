@@ -17,6 +17,7 @@ public class DatabaseObjectCharacterConst {
     private String constContentFive;
     private String constContentSix;
     private String image;
+    private String element;
 
     public String getImage() {
         return image;
@@ -136,5 +137,13 @@ public class DatabaseObjectCharacterConst {
 
     public void setConstContentOne(String constContentOne) {
         this.constContentOne = constContentOne;
+    }
+
+    public String getElement() {
+        return element;
+    }
+
+    public void setElement(String element) {
+        this.element = element;
     }
 }
