@@ -1,8 +1,6 @@
 package com.Endortech.Discord.GenshinHelper;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -28,6 +26,7 @@ public class CharacterInfo {
     public EmbedBuilder characterWiki(String character) {
         List<DatabaseObjectOutput> dbo = db.dbToObj();
         int index = 0;
+        //check if character name is the same as one in the object and returns index value
         for(int i = 0; i < dbo.size(); i++){
             if(dbo.get(i).getName().equalsIgnoreCase(character)){
                 index = i;

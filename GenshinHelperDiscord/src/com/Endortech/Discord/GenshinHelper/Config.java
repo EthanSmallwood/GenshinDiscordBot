@@ -1,14 +1,15 @@
 package com.Endortech.Discord.GenshinHelper;
 
 public class Config {
-
+    //
+    // add token so bot can connect
+    // add activity to show on bot
+    // add default prefix
+    //
     private String token = "";
     private String activity = "Sticky honey roast";
     private String prefix = ".";
 
-
-    public Config() {
-    }
 
     public String getToken() {
         return token;

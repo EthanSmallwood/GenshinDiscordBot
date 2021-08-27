@@ -12,11 +12,11 @@ public class DailyDomains {
 
     public EmbedBuilder todaysDomain(String day){
 
-
+        //compares days to the correct statement
         if(day.equalsIgnoreCase("monday") || day.equalsIgnoreCase("thursday")){
             EmbedBuilder temp = new EmbedBuilder();
             temp.setTitle((day.toUpperCase()) + " DOMAINS");
-            temp.setImage("https://cdn.discordapp.com/attachments/635913556998750208/872174896422195260/unknown.png");
+            temp.setImage("https://cdn.discordapp.com/attachments/635913556998750208/872174896422195260/unknown.png");//adds image
             return temp;
         }
 

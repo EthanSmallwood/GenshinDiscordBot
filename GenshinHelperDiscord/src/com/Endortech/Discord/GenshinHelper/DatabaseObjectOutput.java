@@ -44,7 +44,7 @@ public class DatabaseObjectOutput {
 
     public String getRarity() {
         StringBuilder temp = new StringBuilder();
-        temp.append(":star:".repeat(Math.max(0, this.rarity)));
+        temp.append(":star:".repeat(Math.max(0, this.rarity)));//takes the int value from database and multiplies the string to equal the int
         return temp.toString();
     }
 

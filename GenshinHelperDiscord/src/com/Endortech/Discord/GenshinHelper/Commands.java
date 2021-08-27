@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
 import java.awt.*;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -21,9 +20,9 @@ public class Commands extends ListenerAdapter{
 
 
     public void sendMessageDelay(User user, String content,int time) {
-        user.openPrivateChannel()
-                .flatMap(channel -> channel.sendMessage(content))
-                .queueAfter(time, TimeUnit.MINUTES);
+        user.openPrivateChannel()//starts direct message
+                .flatMap(channel -> channel.sendMessage(content))//constructs message
+                .queueAfter(time, TimeUnit.MINUTES);//sends message after set minutes
     }
 
 @Override
@@ -148,12 +147,11 @@ public class Commands extends ListenerAdapter{
 
                     if (msg.getContentRaw().substring(1, 3).equalsIgnoreCase("ch")){
                         MessageChannel channel = event.getChannel();
-                        File currentDir = new File("");
+                        File currentDir = new File(""); //gets folder directory
                         try {
                             channel.sendMessage("Please wait, getting "+msg.getContentRaw().substring(4)).queue();
-                            File file = new File(currentDir.getAbsolutePath()+"\\src\\com\\Endortech\\Discord\\GenshinHelper\\genshinBotPhotos\\Character_" + msg.getContentRaw().substring(4) + ".jpg");
-
-                            channel.sendMessage(ch.characters(msg.getContentRaw().substring(4).toLowerCase()).build()).addFile(file, "Character_" + msg.getContentRaw().substring(4) + ".jpg").queue();
+                            File file = new File(currentDir.getAbsolutePath()+"\\src\\com\\Endortech\\Discord\\GenshinHelper\\genshinBotPhotos\\Character_" + msg.getContentRaw().substring(4) + ".jpg"); //dynamically gets photo
+                            channel.sendMessage(ch.characters(msg.getContentRaw().substring(4).toLowerCase()).build()).addFile(file, "Character_" + msg.getContentRaw().substring(4) + ".jpg").queue();//adds photos to embed and outputs
                         } catch (Exception ignored) {
                             channel.sendMessage(msg.getContentRaw().substring(4)+" isn't a valid character").queue();
                         }
@@ -161,14 +159,12 @@ public class Commands extends ListenerAdapter{
 
                     if(msg.getContentRaw().substring(1,6).equalsIgnoreCase("resin")){
                         MessageChannel channel = event.getChannel();
-                        System.out.println("resin");
-                        System.out.println(msg.getContentRaw().substring(7));
                         try{
+                            //check if int is between 1 and 160
                             if(Integer.parseInt(msg.getContentRaw().substring(7) )>=1 && Integer.parseInt(msg.getContentRaw().substring(7) ) <= 160) {
-                                int resinAmount = Integer.parseInt(msg.getContentRaw().substring(7));
-                                int time = resinAmount * gi.getResinReset();
-                                System.out.println(time);
-                                sendMessageDelay(event.getAuthor(),"Resin has refreshed",time);
+                                int resinAmount = Integer.parseInt(msg.getContentRaw().substring(7));//gets int
+                                int time = resinAmount * gi.getResinReset();//calculates time
+                                sendMessageDelay(event.getAuthor(),"Resin has refreshed",time); //gets user and delays a message by a set time
                             }else{
                                 channel.sendMessage("Please enter a valid number between 1-160").queue();
                             }
