@@ -3,22 +3,33 @@ package com.Endortech.Discord.GenshinHelper;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 
 public class Commands extends ListenerAdapter{
 
-    public static Config config = new Config();
-    public static DailyDomains dd = new DailyDomains();
-    public static CharacterInfo ch = new CharacterInfo();
-    public static GameInfo gi = new GameInfo();
+    private static Config config = new Config();
+    private static DailyDomains dd = new DailyDomains();
+    private static CharacterInfo ch = new CharacterInfo();
+    private static GameInfo gi = new GameInfo();
+
+
+    public void sendMessageDelay(User user, String content,int time) {
+        user.openPrivateChannel()
+                .flatMap(channel -> channel.sendMessage(content))
+                .queueAfter(time, TimeUnit.MINUTES);
+    }
 
 @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+
+
         if(!(event.getAuthor().isBot())){//checks if message is  bot or user
             Message msg = event.getMessage();
             String temp = Character.toString(msg.getContentRaw().charAt(0));
@@ -38,10 +49,12 @@ public class Commands extends ListenerAdapter{
                                 Ch - Shows all characters
                                 Ch <Character> - Shows character Ascension Guide
                                 NextBanner - Shows upcoming 5* on event banner
+                                Resin <Number> - Reminds you when resin refreshes 
+                                Wiki <Character> - Information about characters
                                 """);//embed content
                         help.addField("Creator", "Endortech #0858", true);// shows creator part
                         help.setColor(Color.red); // sets embed colour
-                        channel.sendMessage(help.build()).queue(); // sends embed
+                        channel.sendMessage(help.build()).complete().addReaction("✔").queue(); // sends embed
 
                     }
 
@@ -54,7 +67,7 @@ public class Commands extends ListenerAdapter{
                                 });
                     }
 
-                    if (msg.getContentRaw().substring(1).equalsIgnoreCase("ch")) {
+                    if (msg.getContentRaw().substring(1).equalsIgnoreCase("all")) {
                         MessageChannel channel = event.getChannel();
                         EmbedBuilder temp2 = new EmbedBuilder();
                         temp2.setDescription("""
@@ -144,6 +157,32 @@ public class Commands extends ListenerAdapter{
                         } catch (Exception ignored) {
                             channel.sendMessage(msg.getContentRaw().substring(4)+" isn't a valid character").queue();
                         }
+                    }
+
+                    if(msg.getContentRaw().substring(1,6).equalsIgnoreCase("resin")){
+                        MessageChannel channel = event.getChannel();
+                        System.out.println("resin");
+                        System.out.println(msg.getContentRaw().substring(7));
+                        try{
+                            if(Integer.parseInt(msg.getContentRaw().substring(7) )>=1 && Integer.parseInt(msg.getContentRaw().substring(7) ) <= 160) {
+                                int resinAmount = Integer.parseInt(msg.getContentRaw().substring(7));
+                                int time = resinAmount * gi.getResinReset();
+                                System.out.println(time);
+                                sendMessageDelay(event.getAuthor(),"Resin has refreshed",time);
+                            }else{
+                                channel.sendMessage("Please enter a valid number between 1-160").queue();
+                            }
+
+                        }catch (Exception ignored) {
+                            channel.sendMessage("Please enter a valid number between 1-160").queue();
+                        }
+
+
+                    }
+
+                    if(msg.getContentRaw().substring(1,5).equalsIgnoreCase("wiki")){
+                        MessageChannel channel = event.getChannel();
+                        channel.sendMessage(ch.characterWiki(msg.getContentRaw().substring(6).toLowerCase()).build()).queue();
                     }
 
 
