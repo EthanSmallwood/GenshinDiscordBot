@@ -24,6 +24,7 @@ Todo:
 
       resource route e.g. .resources snapdragon
       character wiki page 2
+      auto get next banner
 
 
 
