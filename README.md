@@ -25,13 +25,15 @@ Todo:
 
       resource route e.g. .resources snapdragon
       character Tallents
-      auto get next banner
+      
 
 
 
-
-
-
+Key features:
+      
+      Webscraping data to keep the bot up to date.
+      Database that holds infomation about characters and holds links to images
+      Folder that contains images used in embeds 
 
 
 
