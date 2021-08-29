@@ -1,8 +1,11 @@
 package com.Endortech.Discord.GenshinHelper;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import org.sqlite.util.StringUtils;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -11,6 +14,7 @@ public class CharacterInfo {
     private DatabaseHandler db = new DatabaseHandler();
     private List<DatabaseObjectOutputCharacters> dbo = db.dbToObjChar();
     private List<DatabaseObjectCharacterConst> doc = db.dbToObjConst();
+    private WebScraper ws = new WebScraper();
 
 
     public EmbedBuilder characters(String character){
@@ -23,10 +27,30 @@ public class CharacterInfo {
     }
 
     public EmbedBuilder nextBanner(){
+        List<ScrapperHelper> bannerList = ws.upcomingBanner();
+        String tempString = "\n";
+        for (ScrapperHelper scrapperHelper : bannerList) {
+            tempString += scrapperHelper.getName();
+            tempString += ", ";
+        }
+        tempString = tempString.substring(0, tempString.length() - 2);
+        List<Integer> indexName = new ArrayList<>();
+        for(int i = 0; i < bannerList.size(); i++) {
+            String[] characterNameCheck = bannerList.get(i).getName().split(" ");
+            for(int y = 0; y <characterNameCheck.length; y++) {
+                for (int x = 0; x < dbo.size(); x++) {
+                    if (dbo.get(x).getName().equalsIgnoreCase(characterNameCheck[y])) {
+                        indexName.add(x);
+                    }
+                }
+            }
+        }
+
         EmbedBuilder temp = new EmbedBuilder();
         temp.setTitle("NEXT BANNER");
-        temp.setImage("attachment://Character_"+gi.getNextBanner().toLowerCase()+".jpg");
-        Color colour = getColour(gi.getNextBanner().toLowerCase());
+        temp.addField("Characters on banner",tempString,true);
+        temp.setImage(dbo.get(indexName.get(0)).getImage());
+        Color colour = getColour(dbo.get(indexName.get(0)).getName());
         temp.setColor(colour);
         return temp;
     }

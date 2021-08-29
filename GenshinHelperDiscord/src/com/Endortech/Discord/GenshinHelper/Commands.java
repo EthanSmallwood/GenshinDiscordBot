@@ -122,12 +122,10 @@ public class Commands extends ListenerAdapter{
 
                     if (msg.getContentRaw().substring(1).equalsIgnoreCase("nextbanner")){
                         MessageChannel channel = event.getChannel();
-                        File currentDir = new File(""); //gets project directory
+
                         try {
                             channel.sendMessage("Please wait getting next banner").queue();
-                            File file = new File(currentDir.getAbsolutePath()+"\\src\\com\\Endortech\\Discord\\GenshinHelper\\genshinBotPhotos\\Character_" + gi.getNextBanner().toLowerCase()  + ".jpg"); // creates the file directory for the photo
-
-                            channel.sendMessage(ch.nextBanner().build()).addFile(file, "Character_" + gi.getNextBanner().toLowerCase() + ".jpg").queue(); //adds file to embed
+                            channel.sendMessage(ch.nextBanner().build()).queue(); //adds file to embed
                         } catch (Exception ignored) {
                         }
                     }
