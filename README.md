@@ -25,15 +25,6 @@ Key features:
       Database that holds infomation about characters and holds links to images
       Folder that contains images used in embeds 
 
-
-
-
-Todo:
-
-      resource route e.g. .resources snapdragon
-      character Tallents
-      join call and play teyvat music
-      discord compatable https://seelie.inmagi.com/ inventory scanner   
       
 
 
