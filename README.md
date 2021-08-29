@@ -15,17 +15,7 @@ Current commands:
       NextBanner - Shows upcoming 5* on event banner
       Resin <Number> - Reminds you when resin refreshes 
       Wiki <Character> - Information about characters
-      Const <Character> - Constellations for the character
-
-
-
-
-
-Todo:
-
-      resource route e.g. .resources snapdragon
-      character Tallents
-      
+      Const <Character> - Constellations for the character  
 
 
 
@@ -38,7 +28,13 @@ Key features:
 
 
 
+Todo:
 
+      resource route e.g. .resources snapdragon
+      character Tallents
+      join call and play teyvat music
+      discord compatable https://seelie.inmagi.com/ inventory scanner   
+      
 
 
 
