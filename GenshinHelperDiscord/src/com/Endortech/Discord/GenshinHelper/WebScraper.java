@@ -19,9 +19,10 @@ public class WebScraper {
         try {
 
             Document doc = Jsoup.connect(url).timeout(6000).get();
-            Elements body = doc.select("#mw-content-text > div.mw-parser-output > table:nth-child(25) > tbody > tr:nth-child(3) > td:nth-child(1) > a");
-            String urlConst = (genUrl + body.attr("href"));
-            Document doc2 = Jsoup.connect("https://genshin-impact.fandom.com/wiki/Reign_of_Serenity/2021-09-01").timeout(6000).get();
+            Elements body = doc.select("#mw-content-text > div.mw-parser-output > table.wikitable");
+            String urlConst = (genUrl + body.next().next().next().select("a").attr("href"));
+            System.out.println(urlConst);
+            Document doc2 = Jsoup.connect(urlConst).timeout(6000).get();
 
             Elements charTable = doc2.select("#mw-content-text > div.mw-parser-output > table:nth-child(17) > tbody > tr:nth-child(2) > td");
             List<String> names = new ArrayList<String>();

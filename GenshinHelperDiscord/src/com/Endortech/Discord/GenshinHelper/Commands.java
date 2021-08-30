@@ -53,7 +53,7 @@ public class Commands extends ListenerAdapter{
                                 """);//embed content
                         help.addField("Creator", "Endortech #0858", true);// shows creator part
                         help.setColor(Color.red); // sets embed colour
-                        channel.sendMessage(help.build()).complete().addReaction("✔").queue(); // sends embed
+                        channel.sendMessage(help.build()).queue(); // sends embed
 
                     }
 
@@ -164,7 +164,7 @@ public class Commands extends ListenerAdapter{
                             //check if int is between 1 and 160
                             if(Integer.parseInt(msg.getContentRaw().substring(7) )>=1 && Integer.parseInt(msg.getContentRaw().substring(7) ) <= 160) {
                                 int resinAmount = Integer.parseInt(msg.getContentRaw().substring(7));//gets int
-                                int time = resinAmount; //* gi.getResinReset();//calculates time
+                                int time = resinAmount * gi.getResinReset();//calculates time
                                 sendMessageDelay(event.getAuthor(),"Resin has refreshed",time); //gets user and delays a message by a set time
                                 channel.sendMessage("Will remind you in "+time+ " Minutes").queue();
                             }else{
