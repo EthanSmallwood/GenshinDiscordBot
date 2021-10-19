@@ -8,7 +8,7 @@ public class Config {
     //
     private String token = "";
     private String activity = "Sticky honey roast";
-    private String prefix = ".";
+    private String prefix = "!";
 
 
     public String getToken() {
