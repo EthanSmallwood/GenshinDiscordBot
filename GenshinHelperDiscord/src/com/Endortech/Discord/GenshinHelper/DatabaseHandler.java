@@ -8,10 +8,9 @@ import java.util.List;
 public class DatabaseHandler {
 
     private final File currentDir = new File("");
-    private final String directory = (currentDir.getAbsolutePath()+ "\\src\\com\\Endortech\\Discord\\GenshinHelper\\genshinBotDatabase\\CharacterDB.db");
+    private final String directory = (currentDir.getAbsolutePath()+"\\GenshinHelperDiscord\\src\\com\\Endortech\\Discord\\GenshinHelper\\genshinBotDatabase\\CharacterDB.db");
 
     public List<DatabaseObjectOutputCharacters> dbToObjChar(){
-
         try {
             Connection con = DriverManager.getConnection("jdbc:sqlite:"+directory);//connects to the database
             Statement stmt = con.createStatement();
