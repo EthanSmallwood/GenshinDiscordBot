@@ -1,4 +1,7 @@
 # GenshinDiscordBot
+
+OLD BOT HAS BEEN REPLACED
+
 This bot is designed to help you play genshin.
 
 Default prefix: .
